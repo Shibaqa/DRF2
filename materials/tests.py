@@ -44,7 +44,7 @@ class LessonTestCase(APITestCase):
             "video": "https://www.youtube.com/",
             "description": "test description"
         }
-        create_lesson = reverse('course_app:lesson_create')
+        create_lesson = reverse('materials:lesson_create')
         response = self.client.post(create_lesson, data, format='json', **self.headers)
         print(response.json())
 
@@ -55,7 +55,7 @@ class LessonTestCase(APITestCase):
         """
         Тест операции чтения (retrieve) урока
         """
-        retrieve_url = reverse('course_app:lesson_detail', args=[self.lesson.id])
+        retrieve_url = reverse('materials:lesson_detail', args=[self.lesson.id])
         response = self.client.get(retrieve_url)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -63,7 +63,7 @@ class LessonTestCase(APITestCase):
 
     def test_update_lesson(self):
         # Тест операции обновления (update) урока
-        update_url = reverse('course_app:lesson_update', args=[self.lesson.id])
+        update_url = reverse('materials:lesson_update', args=[self.lesson.id])
         updated_data = {
             "name": "Updated Lesson",
             "description": "This is an updated lesson",
@@ -77,7 +77,7 @@ class LessonTestCase(APITestCase):
 
     def test_delete_lesson(self):
         # Тест операции удаления (delete) урока
-        delete_url = reverse('course_app:lesson_delete', args=[self.lesson.id])
+        delete_url = reverse('materials:lesson_delete', args=[self.lesson.id])
         response = self.client.delete(delete_url)
 
         self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
@@ -85,7 +85,7 @@ class LessonTestCase(APITestCase):
 
     def test_list_lessons(self):
         # Тест операции получения списка уроков
-        list_url = reverse('course_app:lesson_list')
+        list_url = reverse('materials:lesson_list')
         response = self.client.get(list_url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data['results'][0]['name'], self.lesson.name)
@@ -123,7 +123,7 @@ class SubscriptionTestCase(APITestCase):
         """
         Тест операции создания подписки на курс
         """
-        subscribe_url = reverse('course_app:subscribe', args=[self.course.id])
+        subscribe_url = reverse('materials:subscribe', args=[self.course.id])
         response = self.client.post(subscribe_url, {}, format='json', **self.headers)
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -133,7 +133,7 @@ class SubscriptionTestCase(APITestCase):
         """
         Тест операции отписки от курса
         """
-        subscribe_url = reverse('course_app:subscribe', args=[self.course.id])
+        subscribe_url = reverse('materials:subscribe', args=[self.course.id])
         response = self.client.post(subscribe_url, {}, format='json', **self.headers)
         response = self.client.post(subscribe_url, {}, format='json', **self.headers)
 
