@@ -166,7 +166,7 @@ CELERY_TIMEZONE = 'Europe/Moscow'
 
 CELERY_BEAT_SCHEDULE = {
     'task-name': {
-        'task': 'users.check_user_activity',
+        'task': 'users.tasks.check_user_activity',
         'schedule': timedelta(days=1),
     },
 }
